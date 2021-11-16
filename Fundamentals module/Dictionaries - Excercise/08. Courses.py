@@ -11,7 +11,7 @@ while not data == "end":
 
     data = input()
 
-sorted_courses = sorted(courses.items(), key=lambda kvpt: len(kvpt[1]), reverse= True)
+sorted_courses = sorted(courses.items(), key=lambda kvpt: len(kvpt[1]), reverse=True)
 
 for course_name, student_name in sorted_courses:
     print(f"{course_name}: {len(student_name)}")
