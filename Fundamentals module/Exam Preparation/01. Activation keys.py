@@ -10,26 +10,21 @@ while command != "Generate":
         else:
             print("Substring not found!")
     elif split_data[0] == "Flip":
-        start_index = split_data[2]
-        end_index = split_data[3]
-        start_index = int(start_index)
-        end_index = int(end_index)
-        extraction = raw_activation_key[start_index:end_index]
-        converted_extraction = ""
-        if split_data[1] == "Upper":
-            converted_extraction = extraction.upper()
-        elif split_data[1] == "Lower":
-            converted_extraction = extraction.lower()
+        lower_or_upper, start_index, end_index = split_data[1:]
+        start_index, end_index = int(start_index), int(end_index)
 
-        raw_activation_key = raw_activation_key.replace(extraction, converted_extraction)
+        if lower_or_upper == "Upper":
+            raw_activation_key = raw_activation_key[:start_index] + raw_activation_key[start_index:end_index].upper() + raw_activation_key[end_index:]
+
+        elif lower_or_upper == "Lower":
+            converted_extraction = raw_activation_key[:start_index] + raw_activation_key[start_index:end_index].lower() + raw_activation_key[end_index:]
+
         print(raw_activation_key)
 
     elif split_data[0] == "Slice":
         start_index, end_index = split_data[1:]
-        start_index = int(start_index)
-        end_index = int(end_index)
-        word_to_remove = raw_activation_key[start_index:end_index]
-        raw_activation_key = raw_activation_key.replace(word_to_remove, "")
+        start_index, end_index = int(start_index), int(end_index)
+        raw_activation_key = raw_activation_key[:start_index] + raw_activation_key[end_index:]
         print(raw_activation_key)
 
     command = input()
