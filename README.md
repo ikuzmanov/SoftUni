@@ -1,5 +1,5 @@
 # Softuni Courses and Certification
-[![](https://softuni.foundation/wp-content/uploads/2017/08/SoftUni_Foundation_Logo_Oneline-1.png)](https://softuni.foundation/wp-content/uploads/2017/08/SoftUni_Foundation_Logo_Oneline-1.png)
+[![](https://softuni.foundation/wp-content/uploads/2017/08/SoftUni_Foundation_Logo_Oneline-1.png)](https://softuni.bg/)
 
 
 | Courses  |  Certification Link  |
