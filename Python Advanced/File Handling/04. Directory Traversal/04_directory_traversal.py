@@ -4,7 +4,7 @@ from os import listdir, path
 def traverse_dir(current_path):
     for element in listdir(current_path):
         if path.isdir(path.join(current_path, element)):
-            traverse_dir(path.join(current_path,element), files_by_ext)
+            traverse_dir(path.join(current_path,element))
         else:
             extension = element.split('.')[-1]
             if extension not in files_by_ext:
