@@ -35,8 +35,8 @@ while item_obtained == '':
             break
 
 print(f"{item_obtained} obtained!")
-
 sorted_key_items = sorted(key_materials.items(), key=lambda kvp: (-kvp[1], kvp[0]))
+
 for key_material_name, key_material_qty in sorted_key_items:
     print(f"{key_material_name}: {key_material_qty}")
 
