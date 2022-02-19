@@ -15,7 +15,7 @@ def list_manipulator(numbers_list, command, location, *args):
                 numbers_list = numbers_list[1::]
             else:
                 numbers_to_remove, = args
-                del numbers_list[:-numbers_to_remove+1]
+                del numbers_list[:-numbers_to_remove + 1]
 
         elif location == "end":
             if not args:
@@ -26,11 +26,12 @@ def list_manipulator(numbers_list, command, location, *args):
 
     return numbers_list
 
-print(list_manipulator([1,2,3], "remove", "end"))
-print(list_manipulator([1,2,3], "remove", "beginning"))
-print(list_manipulator([1,2,3], "add", "beginning", 20))
-print(list_manipulator([1,2,3], "add", "end", 30))
-print(list_manipulator([1,2,3], "remove", "end", 2))
-print(list_manipulator([1,2,3], "remove", "beginning", 2))
-print(list_manipulator([1,2,3], "add", "beginning", 20, 30, 40))
-print(list_manipulator([1,2,3], "add", "end", 30, 40, 50))
+
+print(list_manipulator([1, 2, 3], "remove", "end"))
+print(list_manipulator([1, 2, 3], "remove", "beginning"))
+print(list_manipulator([1, 2, 3], "add", "beginning", 20))
+print(list_manipulator([1, 2, 3], "add", "end", 30))
+print(list_manipulator([1, 2, 3], "remove", "end", 2))
+print(list_manipulator([1, 2, 3], "remove", "beginning", 2))
+print(list_manipulator([1, 2, 3], "add", "beginning", 20, 30, 40))
+print(list_manipulator([1, 2, 3], "add", "end", 30, 40, 50))
