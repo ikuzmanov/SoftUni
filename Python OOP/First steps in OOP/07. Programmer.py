@@ -5,7 +5,7 @@ class Programmer:
         self.name = name
 
     def watch_course(self, course_name, language, skills_earned):
-        if self.language in language:
+        if self.language == language:
             self.skills += skills_earned
             return f'{self.name} watched {course_name}'
         else:
