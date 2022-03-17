@@ -1,14 +1,15 @@
 class Trainer:
-    id = 0
+    id = 1
 
     def __init__(self, name: str):
         self.name = name
-        self.id = self.get_next_id()
+        self.id = Trainer.get_next_id()
 
-    @classmethod
-    def get_next_id(cls):
+    @staticmethod
+    def get_next_id():
+        result = Trainer.id
         Trainer.id += 1
-        return Trainer.id
+        return result
 
     def __repr__(self):
         return f"Trainer <{self.id}> {self.name}"
