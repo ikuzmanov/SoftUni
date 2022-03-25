@@ -16,7 +16,7 @@ class Table(ABC):
 
     @property
     def capacity(self):
-        return
+        return self.__capacity
 
     @capacity.setter
     def capacity(self, value):
@@ -25,7 +25,7 @@ class Table(ABC):
         self.__capacity = value
 
     def reserve(self, number_of_people):
-        self.number_of_people += number_of_people
+        self.number_of_people = number_of_people
         self.is_reserved = True
 
     def order_food(self, baked_food: BakedFood):
