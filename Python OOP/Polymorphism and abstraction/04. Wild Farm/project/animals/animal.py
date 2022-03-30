@@ -1,4 +1,4 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 from project.food import Food
 
@@ -31,6 +31,7 @@ food_weight = {
 
 
 class Animal(ABC):
+    @abstractmethod
     def __init__(self, name, weight):
         self.name = name
         self.weight = weight
@@ -51,6 +52,7 @@ class Animal(ABC):
 
 
 class Bird(Animal, ABC):
+    @abstractmethod
     def __init__(self, name, weight, wing_size):
         super().__init__(name, weight)
         self.wing_size = wing_size
@@ -60,6 +62,7 @@ class Bird(Animal, ABC):
 
 
 class Mammal(Animal, ABC):
+    @abstractmethod
     def __init__(self, name, weight, living_region):
         super().__init__(name, weight)
         self.living_region = living_region
