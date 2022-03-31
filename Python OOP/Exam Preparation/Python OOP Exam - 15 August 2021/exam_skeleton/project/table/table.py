@@ -43,5 +43,5 @@ class Table(ABC):
         self.number_of_people = 0
 
     def free_table_info(self):
-        if self.number_of_people == 0:
+        if not self.is_reserved:
            return f"Table: {self.table_number}\nType: {self.__class__.__name__}\nCapacity: {self.capacity}"
