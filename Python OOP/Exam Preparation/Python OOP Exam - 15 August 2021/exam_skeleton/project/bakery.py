@@ -50,51 +50,43 @@ class Bakery:
         return f"No available table for {number_of_people} people"
 
     def order_food(self, table_number: int, *food_args):
-        result = f"Table {table_number} ordered:\n"
-        food_menu_names = [food.name for food in self.food_menu]
-        missing_foods = []
-        table = [table for table in self.tables_repository if table_number == table_number][0]
-        if not table:
-            return f"Could not find table {table_number}"
+        table = self.find_table_by_number(table_number)
+        if table is None:
+            return f'Could not find table {table_number}'
 
-        for food_input in food_args:
-            if food_input not in food_menu_names:
-                missing_foods.append(food_input)
+        ordered_foods = f'Table {table_number} ordered:\n'
+        skipped_order_foods = f'{self.name} does not have in the menu:\n'
 
-        for food_input in food_args:
-            for food in self.food_menu:
-                if food.name == food_input:
-                    table.order_food(food)
-                    result += repr(food) + '\n'
+        for food_name in food_args:
+            food = self.find_food_by_name(food_name)
+            if food is None:
+                skipped_order_foods += food_name + '\n'
+            else:
+                table.order_food(food)
+                ordered_foods += str(food) + '\n'
 
-        result += f'{self.name} does not have in the menu:\n' + '\n'.join(missing_foods)
-
-        return result
+        return ordered_foods.strip() + '\n' + skipped_order_foods.strip()
 
     def order_drink(self, table_number: int, *drink_args):
-        result = f"Table {table_number} ordered:\n"
-        drink_menu_name = [drink.name for drink in self.drinks_menu]
-        missing_drinks = []
-        table = [table for table in self.tables_repository if table_number == table_number][0]
-        if not table:
-            return f"Could not find table {table_number}"
+        table = self.find_table_by_number(table_number)
+        if table is None:
+            return f'Could not find table {table_number}'
 
-        for drink_input in drink_args:
-            if drink_input not in drink_menu_name:
-                missing_drinks.append(drink_input)
+        ordered_drinks= f'Table {table_number} ordered:\n'
+        skipped_order_drinks = f'{self.name} does not have in the menu:\n'
 
-        for drink_input in drink_args:
-            for drink in self.drinks_menu:
-                if drink.name == drink_input:
-                    table.order_food(drink)
-                    result += repr(drink) + '\n'
+        for drink_name in drink_args:
+            drink = self.find_drink_by_name(drink_name)
+            if drink is None:
+                skipped_order_drinks += drink_name + '\n'
+            else:
+                table.order_drink(drink)
+                ordered_drinks += str(drink) + '\n'
 
-        result += f'{self.name} does not have in the menu:\n' + '\n'.join(missing_drinks)
-
-        return result
+        return ordered_drinks.strip() + '\n' + skipped_order_drinks.strip()
 
     def leave_table(self, table_number: int):
-        table = [table for table in self.tables_repository if table_number == table_number][0]
+        table = self.find_table_by_number(table_number)
         table_bill = table.get_bill()
         self.total_income += table_bill
         table.clear()
@@ -103,9 +95,27 @@ class Bakery:
     def get_free_tables_info(self):
         result = ""
         for table in self.tables_repository:
-            result += table.free_table_info() + "\n"
-
-        return result
+            if not table.is_reserved:
+                result += table.free_table_info() + "\n"
+        return result.strip()
 
     def get_total_income(self):
         return f"Total income: {self.total_income:.2f}lv"
+
+    def find_table_by_number(self, table_number):
+        for table in self.tables_repository:
+            if table.table_number == table_number:
+                return table
+        return None
+
+    def find_food_by_name(self, food_name):
+        for food in self.food_menu:
+            if food.name == food_name:
+                return food
+        return None
+
+    def find_drink_by_name(self, drink_name):
+        for drink in self.drinks_menu:
+            if drink.name == drink_name:
+                return drink
+        return None
