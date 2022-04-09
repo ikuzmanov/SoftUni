@@ -13,10 +13,13 @@ class Controller:
         self.aquariums = []
 
     def add_aquarium(self, aquarium_type: str, aquarium_name: str):
-        valid_aquariums = ("FreshwaterAquarium", "SaltwaterAquarium")
+        valid_aquariums = {
+            "FreshwaterAquarium": FreshwaterAquarium,
+            "SaltwaterAquarium": SaltwaterAquarium,
+        }
         if aquarium_type not in valid_aquariums:
             return "Invalid aquarium type."
-        self.aquariums.append(eval(aquarium_type)(aquarium_name))
+        self.aquariums.append(valid_aquariums[aquarium_type](aquarium_name))
         return f"Successfully added {aquarium_type}."
 
     def add_decoration(self, decoration_type: str):
@@ -40,6 +43,7 @@ class Controller:
 
     def add_fish(self, aquarium_name: str, fish_type: str, fish_name: str, fish_species: str, price: float):
         aquarium = self.get_aquarium_by_name(aquarium_name)
+        # aquarium = [aqua for aqua in self.aquariums if aqua.name == aquarium_name][0]
         if fish_type not in ("FreshwaterFish", "SaltwaterFish"):
             return f"There isn't a fish of type {fish_type}."
         fish = eval(fish_type)(fish_name, fish_species, price)

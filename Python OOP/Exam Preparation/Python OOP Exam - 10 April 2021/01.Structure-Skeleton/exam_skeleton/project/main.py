@@ -24,4 +24,4 @@ print(controller.feed_fish("aquarium1"))
 print(controller.calculate_value("aquarium1"))
 print(controller.report())
 a=5
-# print(controller.__dict__)
+print(controller.__dict__)
