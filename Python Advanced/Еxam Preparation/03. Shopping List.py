@@ -6,13 +6,13 @@ def shopping_list(budget, **kwargs):
     basket = set()
 
     for product, price_and_quantity in kwargs.items():
-        if len(basket) == 5:
+        if len(basket) >= 5:
             break
         price, quantity = price_and_quantity
         total_sum = price*quantity
 
         if budget >= total_sum:
-            products.append(f"You bought {product} for {total_sum:.2f} leva")
+            products.append(f"You bought {product} for {total_sum:.2f} leva.")
             basket.add(product)
             budget -= total_sum
 
