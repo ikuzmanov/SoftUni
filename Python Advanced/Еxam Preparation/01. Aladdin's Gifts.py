@@ -57,8 +57,8 @@ while True:
         crafting_materials.pop()
         genie_magic_level.popleft()
 
-if "Gemstone" in crafted_gifts and "Porcelain Sculpture" in crafted_gifts \
-        or "Gold" in crafted_gifts and "Diamond Jewellery" in crafted_gifts:
+if ("Gemstone" in crafted_gifts and "Porcelain Sculpture") in crafted_gifts \
+        or ("Gold" in crafted_gifts and "Diamond Jewellery") in crafted_gifts:
     print("The wedding presents are made!")
 else:
     print("Aladdin does not have enough wedding presents.")
