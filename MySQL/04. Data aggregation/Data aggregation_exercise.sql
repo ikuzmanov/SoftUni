@@ -55,3 +55,37 @@ FROM
 GROUP BY age_group
 ORDER BY wizard_count;
         
+#10. First Letter
+SELECT LEFT(first_name,1) AS 'first_letter' FROM wizzard_deposits
+WHERE deposit_group = 'Troll Chest'
+GROUP BY first_letter
+ORDER BY first_letter ASC;
+
+#11. Average Interest 
+SELECT deposit_group, is_deposit_expired, AVG(deposit_interest) AS 'average_interest' FROM wizzard_deposits
+WHERE deposit_start_date > '1985-01-01'
+GROUP BY deposit_group, is_deposit_expired
+ORDER BY deposit_group DESC, is_deposit_expired ASC;
+
+#12. Employees Minimum Salaries
+SELECT department_id, MIN(salary) as 'minimum_salary' FROM employees
+WHERE hire_date > '2000-01-01'
+GROUP BY department_id
+HAVING department_id IN (2,5,7)
+ORDER BY department_id ASC;
+
+#13. Employees Average Salaries
+SELECT department_id, IF(department_id = 1, AVG(salary) + 5000, AVG(salary)) AS 'avg_salary' FROM employees
+WHERE salary > 30000 AND manager_id != 42
+GROUP BY department_id
+ORDER BY department_id ASC;
+
+#14. Employees Maximum Salaries
+SELECT department_id, MAX(salary) AS 'max_salary' FROM employees
+GROUP BY department_id
+HAVING max_salary NOT BETWEEN 30000 AND 70000
+ORDER BY department_id ASC;
+
+#15. Employees Count Salaries
+SELECT COUNT(salary) AS '' from employees
+WHERE manager_id IS NULL;
