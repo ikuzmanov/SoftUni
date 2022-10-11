@@ -155,7 +155,7 @@ ORDER BY mountain_range DESC;
 #14. Countries with Rivers
 SELECT 
     c.country_name, r.river_name
-FROM
+FROM 
     rivers AS r
         RIGHT JOIN
     countries_rivers AS cv ON cv.river_id = r.id
@@ -163,5 +163,29 @@ FROM
     countries AS c ON c.country_code = cv.country_code
 WHERE
     c.continent_code = 'AF'
-ORDER BY country_name ASC
+ORDER BY c.country_name ASC
+LIMIT 5;
+
+#16. Countries Without Any Mountains
+SELECT COUNT(c.country_code) AS country_count FROM countries as c
+LEFT JOIN mountains_countries AS mc ON mc.country_code = c.country_code
+WHERE mountain_id is NULL;
+
+#17.  Highest Peak and Longest River by Country
+SELECT 
+    c.country_name,
+    MAX(p.elevation) AS 'highest_peak_elevation',
+    MAX(r.length) AS 'longest_river_length'
+FROM
+    countries AS c
+        LEFT JOIN
+    mountains_countries AS mc ON c.country_code = mc.country_code
+        LEFT JOIN
+    peaks AS p ON p.mountain_id = mc.mountain_id
+        LEFT JOIN
+    countries_rivers AS cr ON cr.country_code = c.country_code
+        LEFT JOIN
+    rivers AS r ON cr.river_id = r.id
+GROUP BY c.country_code
+ORDER BY highest_peak_elevation DESC , longest_river_length DESC , c.country_name ASC
 LIMIT 5;
