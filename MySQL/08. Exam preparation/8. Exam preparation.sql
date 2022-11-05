@@ -79,3 +79,29 @@ CREATE TABLE players_coaches (
 INSERT INTO coaches (first_name, last_name, salary, coach_level) 
 SELECT first_name, last_name, salary*2, char_length(first_name) AS 'coach_level' FROM players 
 WHERE age >= 45;
+
+#3. Update
+UPDATE coaches AS c
+LEFT JOIN players_coaches AS pc ON c.id = pc.coach_id
+SET c.coach_level = c.coach_level + 1
+WHERE c.first_name LIKE 'A%' AND player_id IS NOT NULL;
+
+#4. Delete
+DELETE FROM players
+WHERE age >=45;
+
+#5. Players 
+SELECT first_name, age, salary FROM players
+ORDER BY salary DESC;
+
+#6.	Young offense players without contract
+SELECT p.id, p.salary, CONCAT(p.first_name,' ', p.last_name) AS 'full_name', p.age, p.position,p.hire_date FROM players AS p
+JOIN skills_data AS sd ON sd.id = p.skills_data_id
+WHERE p.position = "A" AND p.hire_date IS NULL AND p.age < 23 AND sd.strength > 50
+ORDER BY p.salary ASC, p.age;
+
+#7.	Detail info for all teams
+SELECT t.name, t.established, t.fan_base, COUNT(p.id) AS 'players_count' FROM teams AS t
+LEFT JOIN players AS p on t.id = p.team_id
+GROUP BY t.id
+ORDER BY players_count DESC, fan_base DESC;
