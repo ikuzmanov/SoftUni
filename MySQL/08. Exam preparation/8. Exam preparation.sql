@@ -105,3 +105,50 @@ SELECT t.name, t.established, t.fan_base, COUNT(p.id) AS 'players_count' FROM te
 LEFT JOIN players AS p on t.id = p.team_id
 GROUP BY t.id
 ORDER BY players_count DESC, fan_base DESC;
+
+#8.	The fastest player by towns
+SELECT MAX(sd.speed) AS 'max_speed', t.name AS 'town_name' FROM towns AS t
+JOIN stadiums AS s ON t.id = s.town_id
+JOIN teams AS ts ON ts.stadium_id = s.id
+LEFT JOIN players AS p ON ts.id = p.team_id
+LEFT JOIN skills_data AS sd ON p.skills_data_id = sd.id
+WHERE ts.name <> 'Devify'
+GROUP BY t.id
+ORDER BY max_speed DESC, town_name;
+
+#9.	Total salaries and players by country
+SELECT c.name, COUNT(p.id) AS 'total_count_of_players',
+SUM(p.salary) AS 'total_sum_of_salaries' FROM countries AS c
+LEFT JOIN towns AS t ON t.country_id = c.id
+LEFT JOIN stadiums AS s ON s.town_id = t.id
+LEFT JOIN teams AS tm ON tm.stadium_id = s.id
+LEFT JOIN players AS p ON p.team_id = tm.id
+GROUP BY c.id
+ORDER BY total_count_of_players DESC, name ASC;
+
+#10. Find all players that play on stadium
+DELIMITER $$
+CREATE FUNCTION udf_stadium_players_count(stadium_name VARCHAR(20))
+RETURNS INTEGER
+DETERMINISTIC
+BEGIN
+	RETURN (SELECT COUNT(p.id) AS cnt
+	FROM players AS p
+	RIGHT JOIN teams AS tm ON p.team_id = tm.id
+	RIGHT JOIN stadiums AS s ON tm.stadium_id = s.id
+	WHERE s.name = stadium_name);
+END
+$$
+
+#11. Find good playmaker by teams
+DELIMITER $$
+CREATE PROCEDURE `udp_find_playmaker` (min_dribbling INT, teamname VARCHAR(40))
+BEGIN
+	SELECT CONCAT(first_name, ' ', last_name) AS 'full_name', p.age, p.salary, sd.dribbling, sd.speed, t.name AS 'team_name' FROM skills_data AS sd
+	JOIN players AS p on p.skills_data_id = sd.id
+	RIGHT JOIN teams AS t ON t.id = p.team_id
+	WHERE t.name = teamname AND sd.speed > (SELECT AVG(speed) FROM skills_data) AND sd.dribbling > min_dribbling
+	ORDER BY sd.speed DESC
+	LIMIT 1;
+END
+$$
