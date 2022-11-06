@@ -4,6 +4,7 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/Python OOP/Exam Preparation/01. Structure_Skeleton" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Python OOP/test/project" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Python OOP/Exam Preparation/Python OOP Exam - 10 April 2021/01.Structure-Skeleton/exam_skeleton" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
