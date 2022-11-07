@@ -18,3 +18,8 @@ class Validator:
     def raise_if_race_type_not_valid(value):
         if value not in ("Winter", "Spring", "Autumn", "Summer"):
             raise ValueError("Race type does not exist!")
+
+    @staticmethod
+    def raise_if_num_is_less_than_limit(value, limit: int, error: str):
+        if value < limit:
+            raise ValueError(error)
