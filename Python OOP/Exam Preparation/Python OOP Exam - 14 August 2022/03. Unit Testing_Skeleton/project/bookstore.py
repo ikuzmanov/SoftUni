@@ -64,6 +64,3 @@ class Bookstore:
         for book_title, number_of_copies in self.availability_in_store_by_book_titles.items():
             result.append(f" - {book_title}: {number_of_copies} copies")
         return '\n'.join(result)
-
-Molivko = Bookstore(10)
-a=5
