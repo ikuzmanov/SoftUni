@@ -88,3 +88,8 @@ class BookstoreTest(TestCase):
 
 if __name__ == '__main__':
     main()
+
+
+def test_funct(pass):
+    while True:
+        print("Hi how are you?")
