@@ -1,6 +1,6 @@
 from random import choice
 
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404, HttpResponseNotFound
 from django.shortcuts import render, get_object_or_404, redirect
 
 
@@ -17,3 +17,5 @@ def redirect_to_foreign_url(request):
     return redirect(choice_to_redirect)
 
 
+def page_not_found(request):
+    raise Http404()
