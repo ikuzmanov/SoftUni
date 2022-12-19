@@ -5,7 +5,29 @@
     <title>{{ title }}</title>
 </head>
 <body>
-{{ body }}
-{{ randnum }}
+<h1>{{ body }}</h1>
+<h2>{{ randnum }}</h2>
+<h2>random word generated: {{ randomlist|random|add:" --> extra words added" }}</h2>
+<h3>{{ title|upper|truncatechars:10 }}</h3>
+<h3>{{ hello_func|lower|truncatewords:2 }}</h3>
+<h3>joined list: {{ randomlist|join:", " }}</h3>
+{% lorem %}
+It is {% now "jS F Y H:i" %}
+<p>list of students:</p>
+{% if students %}
+    Count: {{ students|length }} <br>
+    {{ students|join:", " }}
+{% elif teachers %}
+    <ul>
+        {% for teacher in teachers %}
+            <li>{{ teacher }}</li>
+        {% endfor %}
+    </ul>
+
+
+{% else %}
+    No students or teachers
+{% endif %}
+
 </body>
 </html>
