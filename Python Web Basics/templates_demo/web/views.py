@@ -26,3 +26,6 @@ def index(request):
 
 def search(request):
     return redirect("https://google.com")
+
+def about(request):
+    return render(request, 'web/about.html')
