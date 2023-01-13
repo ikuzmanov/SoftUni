@@ -21,7 +21,7 @@ class Employee(models.Model):
     review = models.TextField()
     years_of_experience = models.PositiveIntegerField()
     start_date = models.DateField()
-    email = models.EmailField(unique=True, editable=False)
+    email = models.EmailField(unique=True)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
     age = models.IntegerField(default=-1)

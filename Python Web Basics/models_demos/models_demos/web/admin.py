@@ -10,7 +10,7 @@ class EmployeeAdmin(admin.ModelAdmin):
     list_filter = ('level', 'works_full_time')
     search_fields = ('first_name', 'last_name')
     fieldsets = (('Personal info',
-                  {'fields': ('first_name', 'last_name', 'age')}),
+                  {'fields': ('first_name', 'last_name', 'age', 'email')}),
                  ('Professional info',
                   {'fields': ('level', 'years_of_experience')}),
                  ('Company Info',
