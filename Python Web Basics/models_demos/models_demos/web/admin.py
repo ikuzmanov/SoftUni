@@ -25,7 +25,7 @@ class NullBlankDemoAdmin(admin.ModelAdmin):
 
 @admin.register(Department)
 class DepartmentAdmin(admin.ModelAdmin):
-    pass
+    prepopulated_fields = {'slug': ('name', )}
 
 
 @admin.register(Project)

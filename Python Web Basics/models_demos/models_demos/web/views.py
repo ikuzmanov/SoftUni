@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 
 from models_demos.web.models import Employee, Department
 
@@ -12,3 +12,16 @@ def index(request):
         'department': department
     }
     return render(request, 'index.html', context)
+
+
+def department_details(request, pk, slug):
+    context = {
+        'department': get_object_or_404(Department, pk=pk, slug=slug)
+    }
+    return render(request, 'department-details.html', context)
+
+
+def delete_employee(request, pk):
+    employee = get_object_or_404(Employee, pk=pk)
+    employee.delete()
+    return redirect('index')

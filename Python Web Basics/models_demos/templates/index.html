@@ -8,20 +8,27 @@
 </head>
 <body>
 <ul>
-    {% for employee in employees %}
-        <li>
-            <div>
-                Names: {{ employee.first_name }} {{ employee.last_name }}
-            </div>
-            <div>
-                Age: {{ employee.age }}
-            </div>
-        <div>
-            Department: {{ employee.department.name }}
-        </div>
-        </li>
-    {% endfor %}
-<h1>{{ department.name }}</h1>
+    {% if employees %}
+        <h1>Employees list</h1>
+        {% for employee in employees %}
+            <li>
+                <div>
+                    Names: {{ employee.first_name }} {{ employee.last_name }}
+                </div>
+                <div>
+                    Age: {{ employee.age }}
+                </div>
+                <div>
+                    Department: {{ employee.department.name }}
+                </div>
+                <a href="{% url 'delete employee' pk=employee.pk %}">DELETE</a>
+            </li>
+        {% endfor %}
+        <h1>{{ department.name }}</h1>
+    {% else %}
+        <h2>No employees found</h2>
+    {% endif %}
+
 </ul>
 </body>
 </html>
