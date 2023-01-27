@@ -14,8 +14,15 @@
         Please enter your name
     {% endif %}
 </h1>
+<h2>Customized form</h2>
 <form method="post" action="{% url 'index' %}">
-    {{ form }}
+    {% for field in form %}
+        <label for="{{ field.id_for_label }}">
+            <strong>{{ field.label }}</strong>
+            {{ field }}
+        </label>
+    {% endfor %}
+
     {% csrf_token %}
     <button>Send form</button>
 </form>
