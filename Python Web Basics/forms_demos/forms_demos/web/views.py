@@ -1,30 +1,11 @@
-from django import forms
 from django.shortcuts import render
 
+from forms_demos.web.forms import PersonForm, PersonCreateForm
 from forms_demos.web.models import Person
 
 
-class PersonForm(forms.Form):
-    OCCUPANCIES = (
-        (1, 'Child'),
-        (2, 'High schoolStudent'),
-        (3, 'Student'),
-        (4, 'Adult')
-    )
-    your_name = forms.CharField(max_length=30, help_text="Enter your name", widget = forms.TextInput(
-        attrs={
-            'class': 'form-control-lg',
-            'placeholder': 'Enter your name',
-        }
-    ))
-    age = forms.IntegerField(required=False, label='Your age', initial=0)
-    email = forms.EmailField()
-    occupancy = forms.ChoiceField(choices=OCCUPANCIES, widget=forms.RadioSelect())
-    story = forms.CharField(widget=forms.Textarea())
-
-
 # Create your views here.
-def index(request):
+def index_form(request):
     name = None
     if request.method == 'GET':
         form = PersonForm()
@@ -39,3 +20,23 @@ def index(request):
     }
 
     return render(request, 'index.html', context)
+
+
+def index_model_form(request):
+    if request.method == 'GET':
+        form = PersonCreateForm()
+    else:
+
+        form = PersonCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # pets = form.cleaned_data.pop('pets')
+            # person = Person.objects.create(**form.cleaned_data)
+            # person.pets.set(pets)
+            # person.save()
+            # print(form.cleaned_data)
+
+    context = {
+        'form': form
+    }
+    return render(request, 'model-forms.html', context)
