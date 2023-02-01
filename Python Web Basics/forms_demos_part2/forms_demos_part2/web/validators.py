@@ -5,7 +5,7 @@ from django.utils.deconstruct import deconstructible
 # validator as function
 def validate_text(value):
     if "_" in value:
-        raise ValidationError("_ is invalid character for text")
+        raise ValidationError(message="_ is invalid character for text", code='invalid')
 
 
 def validate_priority(value):
@@ -13,7 +13,7 @@ def validate_priority(value):
         raise ValidationError('Priority must be between 1 and 10')
 
 
-# validator as class
+# validator as class to be used for model forms
 @deconstructible
 class ValueInRangeValidator:
     def __init__(self, min_value, max_value):
