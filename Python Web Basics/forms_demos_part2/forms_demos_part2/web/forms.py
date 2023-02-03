@@ -1,7 +1,9 @@
+import uuid
+
 from django import forms
 from django.core.exceptions import ValidationError
 
-from forms_demos_part2.web.models import Todo
+from forms_demos_part2.web.models import Todo, Person
 from forms_demos_part2.web.validators import validate_text, ValueInRangeValidator
 
 
@@ -39,3 +41,14 @@ class TodoCreateForm(forms.ModelForm):
         if assignee.todo_set.count() >= Todo.MAX_TODOS_COUNT_PER_PERSON:
             raise ValidationError(f'{assignee} already has max todos assigned')
         return assignee
+
+
+class PersonCreateForm(forms.ModelForm):
+    class Meta:
+        model = Person
+        fields = '__all__'
+
+    def clean_profile_image(self):
+        profile_image = self.cleaned_data['profile_image']
+        profile_image.name = str(uuid.uuid4())
+        return profile_image

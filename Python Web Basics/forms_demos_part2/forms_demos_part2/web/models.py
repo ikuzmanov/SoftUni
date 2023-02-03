@@ -7,6 +7,7 @@ class Person(models.Model):
     MAX_LEN_NAME = 20
 
     name = models.CharField(max_length=MAX_LEN_NAME)
+    profile_image = models.ImageField(upload_to='persons', null=True, blank=True)
 
     def __str__(self):
         return self.name

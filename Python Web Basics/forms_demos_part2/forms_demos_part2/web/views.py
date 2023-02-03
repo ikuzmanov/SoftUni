@@ -1,7 +1,8 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from forms_demos_part2.web.forms import TodoCreateForm, TodoForm
+from forms_demos_part2.web.forms import TodoCreateForm, TodoForm, PersonCreateForm
+from forms_demos_part2.web.models import Person
 
 
 def index(request):
@@ -12,7 +13,7 @@ def index(request):
         form = form_class(request.POST)
 
         if form.is_valid():
-            #form.save()
+            # form.save()
             return HttpResponse('All is valid')
         # return HttpResponse('Not valid')
 
@@ -20,3 +21,23 @@ def index(request):
         'form': form
     }
     return render(request, 'index.html', context)
+
+
+def list_persons(request):
+    context = {'persons': Person.objects.all()}
+    return render(request, 'list-persons.html', context)
+
+
+def create_person(request):
+    if request.method == 'GET':
+        form = PersonCreateForm()
+    else:
+        form = PersonCreateForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('list persons')
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'create-person.html', context)
