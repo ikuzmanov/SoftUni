@@ -55,7 +55,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "petstagram.wsgi.application"
 
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 #
@@ -94,7 +93,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -106,14 +104,14 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
-STATICFILES_DIRS = (
-    BASE_DIR / 'staticfiles',
-)
+STATIC_URL = "/static/"
+STATICFILES_DIRS = (BASE_DIR / 'staticfiles',)
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = (BASE_DIR / 'mediafiles')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
