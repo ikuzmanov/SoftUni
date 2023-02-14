@@ -2,9 +2,9 @@
 <nav>
     <ul>
         <li class="img"><img src="{% static "images/dollar.png" %}" alt="dollar"></li>
-        <li><a href="#">Expenses Tracker</a></li>
+        <li><a href="{% url 'index' %}">Expenses Tracker</a></li>
         {% if user_profile %}
-                    <li class="right"><a href="#">Profile</a></li>
+                    <li class="right"><a href="{% url 'profile page'%}">Profile</a></li>
         {% endif %}
     </ul>
 </nav>
