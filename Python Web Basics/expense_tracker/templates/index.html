@@ -1,67 +1,48 @@
 {% extends "base.html" %}
 {% block content %}
- {% if user_profile %}
+    {% if user_profile %}
         <div class="body">
-            <!-- Summary -->
             {% if expenses %}
-
-
-            <div>
-                <h1>Summary</h1>
-                <ul class="expenses-list">
-                    <!-- User Budget -->
-                    <li class="blue">1600.00$</li>
-                    <!-- First Expense -->
-                    <li class="red"> - 900.00$</li>
-                    <!-- Second Expense -->
-                    <li class="red"> - 200.00$</li>
-                    <!-- Money Left -->
-                    <li class="green">= 500.00$ left</li>
-                </ul>
-            </div>
-
+                <div>
+                    <h1>Summary</h1>
+                    <ul class="expenses-list">
+                        <li class="blue">{{ user_profile.budget }}$</li>
+                        {% for expense in expenses %}
+                            <li class="red"> - {{ expense.price }}$</li>
+                        {% endfor %}
+                        <li class="green">= {% if budget_left > 0 %}
+                            {{ budget_left }}$ left
+                        {% else %}
+                            not enough money
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
             {% endif %}
-            <!-- End Summary -->
-
-            <!-- Headline My Expenses -->
             <h1>My Expenses</h1>
-            <!-- Add Expense Button -->
             <a class="button add" href="{% url 'create expense' %}">Add Expense</a>
-
             <div class="expenses-container">
                 {% for expense in expenses %}
-
-                <div class="expense-container">
-                    <!-- Expense Title -->
-                    <h2>{{ expense.title }}</h2>
-                    <!-- Expense Image -->
-                    <img src="{{ expense.expense_image }}">
-                    <!-- Expense Description -->
-                    <p>{{ expense.description }}</p>
-                    <div class="expense-detail">
-                        <div>
-                            <!-- Expense Price -->
-                            <p>Price: {{ expense.price }}$</p>
-                        </div>
-                        <div class="right">
-                            <!-- Edit Expense Button -->
-                            <a class="button edit" href="#  ">Edit</a>
-                            <!-- Delete Expense Button -->
-                            <a class="button delete" href="#">Delete</a>
+                    <div class="expense-container">
+                        <h2>{{ expense.title }}</h2>
+                        <img src="{{ expense.expense_image }}">
+                        <p>{{ expense.description }}</p>
+                        <div class="expense-detail">
+                            <div>
+                                <p>Price: {{ expense.price }}$</p>
+                            </div>
+                            <div class="right">
+                                <a class="button edit" href="{% url 'edit expense' id=expense.id %}">Edit</a>
+                                <a class="button delete" href="{% url 'delete expense' id=expense.id %}">Delete</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-
                 {% endfor %}
-
-
             </div>
         </div>
     {% else %}
         <div class="body">
-
             <h1>Enter your data</h1>
-            <!-- Profile Create Form -->
             <div class="form">
                 <form method="POST" action="{% url 'index' %}" enctype="multipart/form-data">
                     {{ form.as_p }}
@@ -69,7 +50,6 @@
                     {% csrf_token %}
                 </form>
             </div>
-            <!-- End Profile Create Form -->
         </div>
     {% endif %}
 {% endblock %}

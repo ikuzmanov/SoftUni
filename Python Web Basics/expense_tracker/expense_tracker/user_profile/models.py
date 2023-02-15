@@ -20,7 +20,7 @@ class UserProfile(models.Model):
         validators=(MinLengthValidator(NAME_MIN_LENGTH), raise_if_not_letters)
     )
 
-    budget = models.DecimalField(default=0, validators=(MinValueValidator(0),), max_digits=5,
+    budget = models.DecimalField(default=0, validators=(MinValueValidator(0),), max_digits=8,
                                  decimal_places=2)
 
     profile_image = models.ImageField(
