@@ -9,14 +9,14 @@ from expense_tracker.user_profile.models import UserProfile
 
 def profile_page(request):
     user_profile = UserProfile.objects.all().first()
-    total_expenses = 0
-    for obj in Expense.objects.all():
-        total_expenses += obj.price
+    expenses = Expense.objects.all()
+    budget_left = user_profile.budget - sum(exp.price for exp in expenses)
+    expenses_count = len(expenses)
 
     context = {
         "user_profile": user_profile,
-        "expenses_count": Expense.objects.all().count(),
-        "budget_left": user_profile.budget - total_expenses
+        "expenses_count": expenses_count,
+        "budget_left": budget_left,
     }
     return render(request, "profile/profile.html", context)
 

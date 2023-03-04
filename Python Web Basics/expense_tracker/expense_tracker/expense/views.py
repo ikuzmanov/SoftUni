@@ -25,7 +25,7 @@ def index(request):
         "user_profile": user_profile,
         "form": form,
         "expenses": expenses,
-        "budget_left": user_profile.budget - total_expenses
+        # "budget_left": user_profile.budget - total_expenses
     }
     return render(request, 'index.html', context)
 
