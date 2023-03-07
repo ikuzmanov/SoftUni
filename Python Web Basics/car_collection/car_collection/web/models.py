@@ -25,6 +25,9 @@ class Profile(models.Model):
     def __str__(self):
         return f"[{self.id}] {self.username}"
 
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
 
 class Car(models.Model):
     TYPE_MAX_LENGTH = 10
@@ -51,7 +54,7 @@ class Car(models.Model):
     type = models.CharField(max_length=TYPE_MAX_LENGTH, choices=CAR_TYPE_CHOICES)
     model = models.CharField(max_length=MODEL_MAX_LENGTH, validators=(MinLengthValidator(MODEL_MIN_LENGTH),))
     year = models.PositiveIntegerField(validators=(YearBetweenValidator(MIN_YEAR, MAX_YEAR),))
-    image_url = models.URLField()
+    image_url = models.URLField(verbose_name="Image URL")
     price = models.FloatField(validators=(MinValueValidator(PRICE_MIN_VALUE),))
 
 

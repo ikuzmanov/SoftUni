@@ -11,7 +11,7 @@
                 <!-- type and model -->
                 <h1>{{ car.type }}</h1>
                 <!-- car model -->
-                <p><span class="description">Model: {{ car.model}}</span></p>
+                <p><span class="description">Model: {{ car.model }}</span></p>
                 <!-- car year -->
                 <p><span class="description">Year: {{ car.year }}</span></p>
                 <!-- car price -->
@@ -19,8 +19,8 @@
             </div>
 
             <div class="buttons">
-                <a href="#" class="edit-button">Edit</a>
-                <a href="#" class="delete-button">Delete</a>
+                <a href="{% url 'edit car' id=car.id %}" class="edit-button">Edit</a>
+                <a href="{% url 'delete car' id=car.id %}" class="delete-button">Delete</a>
             </div>
         </div>
     </section>
