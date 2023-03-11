@@ -120,4 +120,13 @@ def edit_profile(request):
 
 
 def delete_profile(request):
-    return render(request, "profile/profile-delete.html")
+    user_profile = Profile.objects.all().first()
+    all_cars = Car.objects.all()
+    if request.method == "POST":
+        user_profile.delete()
+        all_cars.delete()
+        return redirect("show index")
+    context = {
+        "user_profile": user_profile,
+    }
+    return render(request, "profile/profile-delete.html", context)
