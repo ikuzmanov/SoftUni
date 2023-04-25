@@ -17,12 +17,10 @@ class CreateUserProfileForm(forms.ModelForm):
             'password': forms.PasswordInput(),
         }
 
-
 class EditUserProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = "__all__"
-
 
 class CreateCarForm(CarBaseForm):
     pass
