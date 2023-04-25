@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="body">
+        <h1>Your Profile</h1>
+        <div class="expenses-container">
+            <div class="expense-container">
+                <h2>{{ user_profile.first_name }} {{ user_profile.last_name }}</h2>
+                <img src="/media/{{ user_profile.profile_image }}" alt="profile pic">
+                <p>Total Items Bought: {{ expenses_count }}</p>
+                <p>Budget Left: {{ budget_left }}</p>
+                <div class="right">
+                    <a class="button edit" href="{% url 'edit profile' %}">Edit Profile</a>
+                    <a class="button delete" href="{% url 'delete profile' %}">Delete Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+path = input().split("\\")
+file_and_ext = ""
+for word in path:
+    if "." in word:
+        file_and_ext = word
+
+file_name, extension = file_and_ext.split(".")
+print(f"File name: {file_name}")
+print(f"File extension: {extension}")
+
+
+
+

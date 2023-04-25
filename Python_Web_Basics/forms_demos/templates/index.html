@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h1>
+        {% block title %} Forms: {% endblock %}
+    </h1>
+    <h2>
+        {% if name %}
+            Hello {{ name }}! Nice to meet you.
+        {% else %}
+            Please enter your name
+        {% endif %}
+    </h2>
+    <h3>Customized form</h3>
+    <form method="post" action="{% url 'index' %}">
+        {% for field in form %}
+            <label for="{{ field.id_for_label }}">
+                <strong>{{ field.label }}</strong>
+                {{ field }}
+            </label>
+        {% endfor %}
+
+        {% csrf_token %}
+        <button>Send form</button>
+    </form>
+
+{% endblock %}

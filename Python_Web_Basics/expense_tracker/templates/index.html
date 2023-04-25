@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+    {% if user_profile %}
+        <div class="body">
+            {% if expenses %}
+                <div>
+                    <h1>Summary</h1>
+                    <ul class="expenses-list">
+                        <li class="blue">{{ user_profile.budget }}$</li>
+                        {% for expense in expenses %}
+                            <li class="red"> - {{ expense.price }}$</li>
+                        {% endfor %}
+                        <li class="green">= {% if budget_left > 0 %}
+                            {{ budget_left }}$ left
+                        {% else %}
+                            not enough money
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            {% endif %}
+            <h1>My Expenses</h1>
+            <a class="button add" href="{% url 'create expense' %}">Add Expense</a>
+            <div class="expenses-container">
+                {% for expense in expenses %}
+                    <div class="expense-container">
+                        <h2>{{ expense.title }}</h2>
+                        <img src="{{ expense.expense_image }}">
+                        <p>{{ expense.description }}</p>
+                        <div class="expense-detail">
+                            <div>
+                                <p>Price: {{ expense.price }}$</p>
+                            </div>
+                            <div class="right">
+                                <a class="button edit" href="{% url 'edit expense' id=expense.id %}">Edit</a>
+                                <a class="button delete" href="{% url 'delete expense' id=expense.id %}">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% else %}
+        <div class="body">
+            <h1>Enter your data</h1>
+            <div class="form">
+                <form method="POST" action="{% url 'index' %}" enctype="multipart/form-data">
+                    {{ form.as_p }}
+                    <input type="submit" value="Submit">
+                    {% csrf_token %}
+                </form>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
