@@ -49,8 +49,8 @@ class Game(models.Model):
     title = models.CharField(max_length=TITLE_MAX_LENGTH, unique=True)
     category = models.CharField(max_length=CATEGORY_MAX_LENGTH, choices=GAME_CATEGORY)
     rating = models.FloatField(validators=(RatingBetweenValues(MIN_RATING, MAX_RATING),))
-    max_level = models.IntegerField(validators=(MinValueValidator(MIN_LEVEL),), blank=True)
-    image_url = models.URLField()
+    max_level = models.IntegerField(validators=(MinValueValidator(MIN_LEVEL),), blank=True, verbose_name="Max Level")
+    image_url = models.URLField(verbose_name="Image URL")
     summary = models.TextField(blank=True)
 
     def __str__(self):
