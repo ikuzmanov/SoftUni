@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from gamesplayapp.web.core.tools import get_user_profile, get_all_games, get_game_by_id
-from gamesplayapp.web.forms import ProfileCreationForm, GameCreationForm, GameEditForm, GameDeleteForm
-from gamesplayapp.web.models import Game
+from gamesplayapp.web.forms import ProfileCreationForm, GameCreationForm, GameEditForm, GameDeleteForm, ProfileEditForm
 
 
 def index(request):
@@ -92,22 +91,38 @@ def delete_game(request, id):
 
 def details_profile(request):
     profile = get_user_profile()
+    all_games = get_all_games()
+    all_games_count = all_games.count()
+    games_average_rating = sum(game.rating for game in all_games)/all_games_count if all_games else 0.0
     context = {
         "profile": profile,
+        "all_games_count": all_games_count,
+        "games_average_rating": games_average_rating,
     }
     return render(request, 'profile/details-profile.html', context)
 
 
 def edit_profile(request):
     profile = get_user_profile()
+    form = ProfileEditForm(request.POST or None, instance=profile)
+    if form.is_valid():
+        form.save()
+        return redirect('details profile')
     context = {
         "profile": profile,
+        "form": form,
     }
     return render(request, 'profile/edit-profile.html', context)
 
 
 def delete_profile(request):
     profile = get_user_profile()
+    all_games = get_all_games()
+    if request.method == "POST":
+        profile.delete()
+        all_games.delete()
+        return redirect('index')
+
     context = {
         "profile": profile,
     }

@@ -1,4 +1,4 @@
-from django.urls import path, include
+from django.urls import path
 
 from gamesplayapp.web.views import index, create_profile, dashboard, create_game, details_game, edit_game, delete_game, \
     details_profile, edit_profile, delete_profile

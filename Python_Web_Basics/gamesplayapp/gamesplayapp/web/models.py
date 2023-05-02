@@ -13,14 +13,16 @@ class Profile(models.Model):
     email = models.EmailField()
     age = models.IntegerField(validators=(MinValueValidator(MINIMUM_AGE),))
     password = models.CharField(max_length=PASSWORD_MAX_LENGTH)
-    first_name = models.CharField(max_length=FIRST_NAME_MAX_LENGTH, blank=True)
-    last_name = models.CharField(max_length=LAST_NAME_MAX_LENGTH, blank=True)
-    profile_picture = models.URLField(blank=True)
+    first_name = models.CharField(max_length=FIRST_NAME_MAX_LENGTH, blank=True, verbose_name="First Name")
+    last_name = models.CharField(max_length=LAST_NAME_MAX_LENGTH, blank=True, verbose_name="Last Name")
+    profile_picture = models.URLField(blank=True, verbose_name="Profile Picture")
 
     def __str__(self):
         return f"{self.id}: {self.first_name} {self.last_name}"
 
-
+    @property
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
 class Game(models.Model):
     TITLE_MAX_LENGTH = 30
     CATEGORY_MAX_LENGTH = 15
